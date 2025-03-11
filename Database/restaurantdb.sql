@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 31, 2025 at 04:36 PM
+-- Host: 127.0.0.1:3307
+-- Generation Time: Mar 11, 2025 at 07:36 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `billnew`
+-- Database: `restaurantdb`
 --
 
 -- --------------------------------------------------------
@@ -47,15 +47,15 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`Id`, `Name`, `UserName`, `Sdt`, `Email`, `Gender`, `Pass`, `Access`, `Classify`, `Avt`, `Birthday`) VALUES
 (1, 'Admin', '', 0, '', 0, '1', 1, '', '', ''),
-(192, '0772179990', 'Mỹ Hoàng', 772179990, 'myt01668@gmail.com', 0, 'Minhthu0608', 2, 'user', '2025131105914_z6273266344512_15ff774fb790704ba6ac38c6e0182768_avt.jpg', '2017-02-01'),
+(192, '0772179990', 'Mỹ Hoàng', 772179990, 'myt01668@gmail.com', 0, 'Minhthu0608', 2, 'user', '202522235259_avt1_avt.jpg', '2017-02-01'),
 (214, '0832048281', 'Nguyễn Văn Thảo', 832048281, '', 1, 'Minhthu0608', 2, 'user', 'male.png', ''),
 (215, '0832049291', 'Đăng Khoa', 832049291, '', 1, 'Minhthu0608', 2, 'user', 'male.png', ''),
 (216, '0842047271', 'Bảo Luân', 842047271, '', 1, 'Minhthu0608', 2, 'user', 'male.png', ''),
 (217, '0842048281', 'Tuấn Bil', 842048281, '', 2, 'Minhthu0608', 2, 'user', 'female.png', ''),
 (218, '0842049291', 'Minh Mỹ', 842049291, '', 1, 'Minhthu0608', 2, 'user', 'male.png', ''),
 (219, '0852047271', 'Hoàng Mỹ', 852047271, '', 1, 'Minhthu0608', 2, 'user', 'male.png', ''),
-(220, '0832047271', 'Mỹ hoàng', 832047271, '', 1, '123', 2, 'user', 'male.png', ''),
-(227, '0898044983', '', 898044983, '', 1, 'Hoangmy', 2, 'user', 'male.png', '');
+(220, '0832047271', 'Mỹ hoàng', 832047271, 'myt01668@gmail.com', 1, '123', 2, 'user', '2025214172943_z6189761064912_b553e8773a38542fd95d2aa801ad7417_avt.jpg', ''),
+(230, '0898044983', 'Hoàng Mỹ', 898044983, '', 0, 'Hoangmy1', 2, 'user', '202522235259_avt1_avt.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE `annout` (
   `IdAcc` int(11) NOT NULL,
   `Containt` varchar(1000) NOT NULL,
   `Date` datetime NOT NULL,
-  `Status` int(1) NOT NULL,
+  `Status` int(11) NOT NULL,
   `IdBill` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -77,10 +77,8 @@ CREATE TABLE `annout` (
 --
 
 INSERT INTO `annout` (`Id`, `IdAcc`, `Containt`, `Date`, `Status`, `IdBill`) VALUES
-(459, 223, 'Đơn hàng đang được giao đến bạn', '2025-01-30 00:18:08', 0, 250),
-(460, 223, 'Giao hàng thành công', '2025-01-30 00:18:37', 0, 250),
-(470, 1, 'Bạn nhận được một đơn hoàng mới', '2025-01-31 17:01:53', 0, 253),
-(471, 1, 'Bạn nhận được một đơn hoàng mới', '2025-01-31 17:07:32', 0, 254);
+(482, 230, 'Đơn hàng đang được giao đến bạn', '2025-02-03 01:01:32', 0, 257),
+(483, 230, 'Giao hàng thành công', '2025-02-03 01:01:58', 0, 257);
 
 -- --------------------------------------------------------
 
@@ -93,15 +91,15 @@ CREATE TABLE `bill` (
   `IdAcc` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL,
   `Sdt` int(11) NOT NULL,
-  `TotalPrice` int(100) NOT NULL,
+  `TotalPrice` int(11) NOT NULL,
   `PriceVoucher` int(11) NOT NULL,
-  `Status` int(1) NOT NULL,
+  `Status` int(11) NOT NULL,
   `Address` varchar(1000) NOT NULL,
   `Destination` varchar(1000) NOT NULL,
   `DATETIME` datetime NOT NULL,
   `Note` varchar(1000) NOT NULL,
   `PayMent` varchar(100) NOT NULL,
-  `StatusPay` int(1) NOT NULL
+  `StatusPay` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -147,7 +145,7 @@ INSERT INTO `bill` (`Id`, `IdAcc`, `Name`, `Sdt`, `TotalPrice`, `PriceVoucher`, 
 (217, 213, '213985_Gogihouse_user', 832047271, 250000, 0, 3, 'Xã Trường Xuân B, Huyện Thới Lai, Thành phố Cần Thơ, Việt Nam', '9.9817616,105.5206071', '2024-11-26 22:39:12', '', '', 0),
 (219, 213, '213985_Gogihouse_user', 832047271, 1537500, 0, 4, 'Phường Thới Bình, Ninh Kiều District, Cần Thơ, 94108, Vietnam', '10.043571300000002,105.7750425', '2024-11-28 15:13:46', '', '241128_219813', 1),
 (234, 217, 'Tuấn Bil', 842048281, 83500, 0, 3, 'Phường Thới Bình, Ninh Kiều District, Cần Thơ, 94108, Vietnam', '10.04357375,105.77503875', '2024-11-28 23:46:10', '', '241128_885514', 1),
-(235, 220, 'Mỹ hoàng', 832047271, 1705500, 0, 0, 'Phường Thới Bình, Ninh Kiều District, Cần Thơ, 94108, Vietnam', '10.026286510729875,105.7688141937158', '2024-11-29 01:24:16', 'Ghi chú', '', 0),
+(235, 220, 'Mỹ hoàng', 832047271, 1705500, 0, 5, 'Phường Thới Bình, Ninh Kiều District, Cần Thơ, 94108, Vietnam', '10.026286510729875,105.7688141937158', '2024-11-29 01:24:16', 'Ghi chú', '', 0),
 (236, 220, 'Mỹ hoàng', 832047271, 844500, 0, 4, 'Phường Thới Bình, Ninh Kiều District, Cần Thơ, 94108, Vietnam', '10.043590666666667,105.77502666666666', '2024-11-29 01:42:23', 'Ghi chú', '241129_284618', 1),
 (237, 220, 'Mỹ hoàng', 832047271, 484500, 0, 4, 'Xã Trường Xuân B, Thới Lai District, Cần Thơ, Vietnam', '9.982097221551067,105.52197403037752', '2025-01-25 14:36:03', '', '', 0),
 (238, 192, 'Mỹ Hoàng', 772179990, 504000, 0, 0, 'Xã Trường Xuân B, Thới Lai District, Cần Thơ, Vietnam', '9.98209781441415,105.52197646729574', '2025-01-29 11:54:20', '', '', 0),
@@ -157,7 +155,13 @@ INSERT INTO `bill` (`Id`, `IdAcc`, `Name`, `Sdt`, `TotalPrice`, `PriceVoucher`, 
 (249, 192, 'Mỹ Hoàng', 772179990, 49000, 40000, 5, 'An Phú, 94100, Ninh Kiều, Cần Thơ, Vietnam', '9.98209781441415,105.52197646729574', '2025-01-29 23:42:12', '', '250129_976706', 2),
 (250, 223, 'Hoang Mỹ', 832047271, 438000, 40000, 4, 'An Cư, 94100, Ninh Kiều, Cần Thơ, Vietnam', '10.035407740259359,105.7810844874906', '2025-01-30 00:16:39', 'Ghi chú', '', 0),
 (251, 224, 'Mỹ hoàng', 898044983, 1029000, 40000, 4, 'An Cư, 94100, Ninh Kiều, Cần Thơ, Vietnam', '10.035467465740709,105.78100441428649', '2025-01-30 08:19:22', 'Ghi chú', '', 0),
-(254, 226, 'Mỹ Hoàng', 832047271, 1324000, 0, 4, 'An Cư, 94100, Ninh Kiều, Cần Thơ, Vietnam', '10.035461959954617,105.78104527281636', '2025-01-31 17:07:32', 'Ghi chú', '', 0);
+(254, 226, 'Mỹ Hoàng', 832047271, 1324000, 0, 4, 'An Cư, 94100, Ninh Kiều, Cần Thơ, Vietnam', '10.035461959954617,105.78104527281636', '2025-01-31 17:07:32', 'Ghi chú', '', 0),
+(256, 229, 'Trần Hoàng Mỹ', 832049291, 1444000, 40000, 5, 'An Cư, 94100, Ninh Kiều, Cần Thơ, Vietnam', '10.035444177954048,105.7810653343443', '2025-02-03 00:55:42', 'Ghi chú', '', 0),
+(257, 230, 'Trần Mỹ', 898044888, 1444000, 40000, 4, 'An Cư, 94100, Ninh Kiều, Cần Thơ, Vietnam', '10.035469530102802,105.78104337755508', '2025-02-03 01:00:54', 'Ghi chú', '', 0),
+(258, 220, 'Mỹ hoàng', 832047271, 188000, 0, 4, 'Xã Trường Xuân B, Thới Lai District, Cần Thơ, Vietnam', '9.982094782754572,105.52198062514677', '2025-02-14 20:18:54', '123', '', 0),
+(259, 220, 'Mỹ hoàng', 832047271, 845000, 0, 2, 'Xã Trường Xuân B, Thới Lai District, Cần Thơ, Vietnam', '9.982094782754572,105.52198062514677', '2025-02-14 20:20:22', '', '', 0),
+(260, 220, 'Mỹ hoàng', 832047271, 548000, 0, 0, 'Ngô Gia Tự, Phường Tân An, Ninh Kiều District, Cần Thơ, 94111, Vietnam', '10.0362,105.788', '2025-02-20 22:31:29', '213', '', 0),
+(261, 192, 'Mỹ Hoàng', 772179990, 158000, 0, 0, 'Phường Thới Bình, Ninh Kiều District, Cần Thơ, 94108, Vietnam', '10.043351352493522,105.77489003956174', '2025-02-26 12:26:11', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -169,7 +173,7 @@ CREATE TABLE `billorder` (
   `Id` int(11) NOT NULL,
   `Price` int(11) NOT NULL,
   `IdTable` int(11) NOT NULL,
-  `Status` int(1) NOT NULL,
+  `Status` int(11) NOT NULL,
   `Type` int(11) NOT NULL,
   `DATETIME` datetime NOT NULL,
   `Note` varchar(255) DEFAULT NULL
@@ -180,27 +184,10 @@ CREATE TABLE `billorder` (
 --
 
 INSERT INTO `billorder` (`Id`, `Price`, `IdTable`, `Status`, `Type`, `DATETIME`, `Note`) VALUES
-(119, 0, 1, 1, 30, '2024-11-19 14:50:20', NULL),
-(121, 0, 1, 1, 30, '2024-11-20 23:37:26', NULL),
-(122, 0, 2, 1, 30, '2024-11-20 23:40:26', NULL),
-(123, 0, 3, 1, 31, '2024-11-20 23:57:19', NULL),
-(124, 0, 2, 1, 30, '2024-11-21 15:41:29', NULL),
-(125, 0, 1, 1, 30, '2024-11-21 15:41:35', NULL),
-(126, 0, 1, 1, 30, '2024-11-24 23:14:58', NULL),
-(127, 0, 2, 1, 30, '2024-11-24 23:27:13', NULL),
-(128, 0, 1, 1, 30, '2024-11-25 12:24:17', NULL),
-(129, 0, 2, 1, 30, '2024-11-25 12:25:05', NULL),
-(130, 0, 4, 1, 31, '2024-11-25 12:39:18', NULL),
-(134, 0, 2, 1, 30, '2024-11-26 15:41:41', NULL),
-(137, 0, 4, 1, 31, '2024-11-26 19:37:01', NULL),
-(138, 0, 4, 1, 31, '2024-11-26 19:40:08', NULL),
-(139, 0, 3, 1, 30, '2024-11-26 20:04:26', NULL),
-(140, 488000, 3, 1, 30, '2024-11-26 20:12:39', NULL),
-(141, 0, 9, 1, 30, '2024-11-26 20:27:29', NULL),
-(143, 0, 2, 1, 30, '2024-11-26 20:39:18', NULL),
-(146, 0, 3, 1, 30, '2024-11-28 15:23:37', NULL),
-(147, 0, 3, 1, 30, '2024-11-28 22:56:08', NULL),
-(148, 0, 3, 1, 30, '2024-11-29 02:08:38', NULL);
+(1, 420120, 2, 1, 30, '2025-02-15 21:33:34', NULL),
+(2, 420120, 2, 1, 30, '2025-02-15 22:27:41', NULL),
+(3, 420120, 2, 1, 30, '2025-02-20 17:49:46', NULL),
+(4, 474120, 1, 1, 31, '2025-02-20 18:23:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -221,13 +208,17 @@ INSERT INTO `card` (`IdAcc`, `IdProduct`) VALUES
 (192, 1),
 (214, 1),
 (214, 2),
+(230, 2),
 (192, 3),
 (214, 3),
 (216, 3),
 (219, 3),
 (214, 4),
 (219, 4),
+(230, 4),
+(192, 5),
 (214, 5),
+(192, 7),
 (215, 7),
 (217, 7),
 (217, 8),
@@ -244,7 +235,6 @@ INSERT INTO `card` (`IdAcc`, `IdProduct`) VALUES
 (214, 31),
 (215, 31),
 (217, 31),
-(227, 31),
 (214, 34),
 (214, 36),
 (215, 36),
@@ -256,19 +246,17 @@ INSERT INTO `card` (`IdAcc`, `IdProduct`) VALUES
 (214, 40),
 (218, 41),
 (220, 41),
-(227, 41),
 (214, 43),
 (215, 43),
 (216, 43),
 (218, 43),
-(227, 43),
 (214, 45),
 (219, 45),
 (220, 45),
 (192, 49),
 (216, 51),
-(192, 52),
 (218, 52),
+(230, 52),
 (215, 53),
 (217, 53),
 (218, 53),
@@ -278,7 +266,6 @@ INSERT INTO `card` (`IdAcc`, `IdProduct`) VALUES
 (192, 65),
 (215, 66),
 (216, 66),
-(227, 66),
 (217, 67),
 (216, 70),
 (218, 71),
@@ -294,8 +281,7 @@ INSERT INTO `card` (`IdAcc`, `IdProduct`) VALUES
 (192, 94),
 (215, 99),
 (217, 99),
-(218, 99),
-(227, 99);
+(218, 99);
 
 -- --------------------------------------------------------
 
@@ -324,7 +310,7 @@ INSERT INTO `categoris` (`Id`, `Name`, `CreatedDateTime`, `CreatedUserId`, `Last
 (7, 'Lẩu', '2024-04-14', 1, '2024-04-14', 1),
 (8, 'Hải Sản', '2024-04-14', 1, '2024-04-14', 1),
 (9, 'Tráng Miệng', '2024-04-14', 1, '2024-04-14', 1),
-(14, 'Giải khát', '2025-01-31', 1, '2025-01-31', 1);
+(16, 'Giai khat', '2025-02-14', 1, '2025-02-14', 1);
 
 -- --------------------------------------------------------
 
@@ -339,7 +325,7 @@ CREATE TABLE `chat` (
   `time` time(4) NOT NULL,
   `containt` varchar(10000) NOT NULL,
   `Date` date NOT NULL,
-  `Status` int(1) NOT NULL
+  `Status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -384,7 +370,7 @@ CREATE TABLE `comment` (
   `Id` int(11) NOT NULL,
   `Containt` varchar(1000) NOT NULL,
   `RepComment` varchar(10000) NOT NULL,
-  `Star` int(1) NOT NULL,
+  `Star` int(11) NOT NULL,
   `IdProduct` int(11) NOT NULL,
   `IdAcc` int(11) NOT NULL,
   `IdBill` int(11) NOT NULL
@@ -404,14 +390,12 @@ INSERT INTO `comment` (`Id`, `Containt`, `RepComment`, `Star`, `IdProduct`, `IdA
 (58, 'Kimpap của gogi thì ngon khỏi phải bàn', 'Gogi rất cảm ơn khi nhận được sự đánh giá cực kỳ nhiệt tình của bạn, chúc bạn có một trãi nghiệm thật tốt tại gogi', 5, 7, 192, 259),
 (59, 'Món này quá tuyệt vời', '', 5, 38, 192, 264),
 (60, 'Ngon nhứt nách', '', 5, 36, 192, 264),
-(78, 'Ngon', '', 5, 85, 192, 156),
 (79, 'Cực phẩm', '', 5, 3, 192, 165),
 (80, 'Qua ngon', '', 5, 7, 192, 165),
 (81, 'Qua ngon', '', 5, 7, 192, 165),
 (82, 'Thịt nướng đậm vị', '', 5, 20, 192, 168),
 (83, 'Hơi ngấy', '', 4, 49, 192, 168),
 (84, 'Uwmmmm ngon', '', 5, 71, 192, 168),
-(85, 'Tươi', '', 5, 84, 192, 168),
 (86, 'Trùi oi nó ngonnnnnn', '', 5, 51, 216, 180),
 (87, 'Ngon', '', 5, 36, 216, 169),
 (88, 'Hihi', '', 4, 33, 216, 169),
@@ -423,7 +407,6 @@ INSERT INTO `comment` (`Id`, `Containt`, `RepComment`, `Star`, `IdProduct`, `IdA
 (94, '10 đỉm', '', 5, 26, 217, 194),
 (95, 'Vị ngon trọn vị', '', 5, 38, 217, 194),
 (96, 'Ádsadadas', '', 5, 67, 217, 194),
-(97, 'Tạm được', '', 4, 85, 217, 194),
 (98, 'Tươi', '', 5, 77, 217, 194),
 (99, 'Mực tươi 10 đỉm', '', 5, 99, 218, 197),
 (100, ' ', '', 5, 53, 218, 197),
@@ -434,7 +417,10 @@ INSERT INTO `comment` (`Id`, `Containt`, `RepComment`, `Star`, `IdProduct`, `IdA
 (141, 'Ngon', '', 5, 77, 192, 162),
 (147, 'Đánh giá', 'Cảm ơn bạn', 5, 4, 220, 236),
 (148, 'Đánh giá 2', 'Cảm ơn bạn đã đánh giá', 5, 6, 220, 236),
-(149, 'Text', '', 5, 4, 220, 237);
+(167, 'Đánh giá 1', 'Cảm ơn bạn đã đánh giá', 5, 2, 230, 257),
+(168, 'Đánh giá mới nhất', 'Cảm ơn bạn đã đánh giá mới nhất', 5, 4, 230, 257),
+(169, 'Good', 'Cảm ơn bạn', 5, 45, 220, 258),
+(170, 'Đánh giá good', 'Cảm ơn bạn đã đánh giắ', 5, 41, 220, 258);
 
 -- --------------------------------------------------------
 
@@ -562,7 +548,20 @@ INSERT INTO `detailbill` (`Id`, `IdBIll`, `IdProduct`, `Price`, `Note`) VALUES
 (147, 251, 2, 830000, NULL),
 (148, 251, 4, 239000, NULL),
 (153, 254, 2, 1245000, NULL),
-(154, 254, 43, 79000, NULL);
+(154, 254, 43, 79000, NULL),
+(157, 256, 2, 1245000, NULL),
+(158, 256, 4, 239000, NULL),
+(159, 257, 2, 1245000, NULL),
+(160, 257, 4, 239000, NULL),
+(161, 258, 45, 79000, NULL),
+(162, 258, 41, 109000, NULL),
+(163, 259, 38, 439000, NULL),
+(164, 259, 41, 327000, NULL),
+(165, 259, 45, 79000, NULL),
+(166, 260, 38, 439000, NULL),
+(167, 260, 41, 109000, NULL),
+(168, 261, 1, 89000, NULL),
+(169, 261, 7, 69000, NULL);
 
 -- --------------------------------------------------------
 
@@ -585,111 +584,20 @@ CREATE TABLE `detailbillorder` (
 --
 
 INSERT INTO `detailbillorder` (`Id`, `IdBill`, `IdProduct`, `Quantity`, `Price`, `Status`, `note`) VALUES
-(1, 119, 4, 1, 239000, 1, 'It cay'),
-(2, 119, 11, 1, 345000, 2, ''),
-(3, 119, 66, 1, 0, 1, NULL),
-(4, 119, 59, 1, 0, 1, NULL),
-(5, 121, 55, 1, 299000, 1, NULL),
-(6, 121, 53, 1, 35000, 1, NULL),
-(7, 121, 57, 1, 40000, 1, NULL),
-(8, 121, 58, 1, 15000, 1, NULL),
-(9, 122, 75, 1, 0, 1, NULL),
-(10, 122, 77, 1, 0, 1, 'Khong cay'),
-(11, 122, 72, 1, 0, 1, NULL),
-(12, 122, 70, 1, 0, 1, NULL),
-(13, 122, 34, 1, 0, 1, NULL),
-(14, 122, 23, 1, 0, 1, NULL),
-(15, 122, 18, 1, 0, 1, NULL),
-(16, 122, 18, 1, 0, 0, NULL),
-(17, 122, 14, 1, 0, 1, NULL),
-(18, 122, 65, 1, 0, 1, NULL),
-(19, 122, 58, 1, 0, 1, NULL),
-(20, 122, 87, 1, 129000, 1, NULL),
-(21, 122, 59, 1, 229000, 2, NULL),
-(22, 122, 68, 1, 15000, 1, NULL),
-(23, 122, 70, 1, 15000, 0, NULL),
-(24, 122, 18, 1, 219000, 0, NULL),
-(25, 123, 2, 1, 415000, 1, NULL),
-(26, 123, 4, 1, 239000, 1, NULL),
-(27, 124, 83, 1, 129000, 1, NULL),
-(28, 124, 87, 1, 129000, 1, NULL),
-(29, 125, 11, 1, 0, 1, NULL),
-(30, 125, 4, 1, 0, 1, NULL),
-(31, 124, 18, 1, 0, 1, NULL),
-(32, 124, 6, 1, 0, 2, NULL),
-(33, 126, 54, 1, 309000, 1, NULL),
-(34, 126, 65, 1, 0, 1, NULL),
-(35, 126, 66, 1, 0, 1, NULL),
-(36, 127, 6, 1, 0, 1, NULL),
-(37, 127, 14, 1, 0, 1, NULL),
-(38, 127, 18, 1, 0, 1, NULL),
-(39, 128, 4, 1, 0, 1, 'K cay'),
-(40, 128, 6, 1, 0, 1, NULL),
-(41, 128, 11, 1, 0, 1, NULL),
-(42, 128, 4, 1, 0, 0, NULL),
-(43, 128, 6, 1, 0, 0, NULL),
-(44, 128, 83, 1, 129000, 1, NULL),
-(45, 130, 2, 1, 0, 1, NULL),
-(46, 129, 4, 1, 0, 1, NULL),
-(47, 130, 2, 1, 0, 0, NULL),
-(48, 130, 4, 1, 0, 1, NULL),
-(49, 130, 8, 1, 109000, 1, NULL),
-(50, 130, 9, 1, 129000, 1, NULL),
-(51, 130, 10, 1, 19000, 1, NULL),
-(52, 130, 13, 1, 79000, 1, NULL),
-(53, 130, 21, 1, 79000, 1, NULL),
-(54, 130, 23, 1, 79000, 1, NULL),
-(68, 134, 14, 1, 0, 1, NULL),
-(69, 134, 13, 1, 0, 1, NULL),
-(70, 134, 4, 4, 0, 1, NULL),
-(71, 134, 6, 1, 0, 1, NULL),
-(72, 134, 4, 1, 0, 1, NULL),
-(73, 134, 18, 3, 0, 1, NULL),
-(84, 137, 2, 1, 0, 1, NULL),
-(85, 137, 4, 2, 0, 1, NULL),
-(86, 137, 6, 2, 0, 1, NULL),
-(87, 137, 40, 1, 0, 2, NULL),
-(88, 138, 9, 1, 0, 1, NULL),
-(89, 138, 8, 3, 0, 1, NULL),
-(90, 138, 7, 2, 0, 1, NULL),
-(91, 138, 6, 2, 0, 2, NULL),
-(92, 138, 4, 3, 0, 2, NULL),
-(93, 138, 2, 1, 0, 1, NULL),
-(94, 138, 4, 2, 0, 1, NULL),
-(95, 139, 4, 1, 0, 1, NULL),
-(96, 139, 6, 1, 0, 1, NULL),
-(97, 139, 13, 2, 0, 1, NULL),
-(98, 139, 11, 3, 0, 2, NULL),
-(99, 139, 18, 1, 0, 1, NULL),
-(100, 139, 14, 2, 0, 1, NULL),
-(101, 140, 23, 1, 0, 1, NULL),
-(102, 140, 34, 1, 0, 1, NULL),
-(103, 141, 4, 2, 0, 1, 'Ghi chú'),
-(104, 141, 6, 1, 0, 1, 'It cay'),
-(105, 141, 11, 1, 0, 2, 'Không hành'),
-(106, 141, 11, 1, 0, 1, NULL),
-(109, 143, 4, 1, 0, 1, NULL),
-(110, 143, 6, 2, 0, 1, NULL),
-(111, 143, 66, 2, 0, 1, NULL),
-(112, 143, 68, 3, 0, 1, NULL),
-(116, 146, 11, 2, 0, 1, NULL),
-(117, 146, 13, 1, 0, 1, NULL),
-(118, 146, 6, 1, 0, 2, NULL),
-(119, 146, 4, 1, 0, 1, NULL),
-(120, 146, 4, 1, 0, 1, NULL),
-(121, 146, 6, 1, 0, 1, NULL),
-(122, 146, 13, 1, 0, 1, NULL),
-(123, 147, 99, 2, 0, 1, 'Ghi chú'),
-(124, 147, 98, 1, 0, 1, NULL),
-(125, 147, 95, 1, 0, 1, NULL),
-(126, 147, 89, 1, 0, 2, NULL),
-(127, 147, 4, 1, 0, 1, NULL),
-(128, 147, 89, 1, 0, 1, NULL),
-(129, 148, 53, 3, 0, 1, 'ghi chú'),
-(130, 148, 34, 2, 0, 1, NULL),
-(131, 148, 55, 1, 0, 1, NULL),
-(132, 148, 54, 1, 0, 2, NULL),
-(133, 148, 54, 1, 0, 1, NULL);
+(1, 1, 75, 1, 0, 1, NULL),
+(2, 1, 70, 1, 0, 2, NULL),
+(3, 1, 68, 1, 0, 1, NULL),
+(4, 1, 4, 1, 0, 1, NULL),
+(5, 2, 55, 1, 0, 1, NULL),
+(6, 2, 11, 1, 0, 1, NULL),
+(7, 3, 11, 1, 0, 1, NULL),
+(8, 3, 13, 2, 0, 1, NULL),
+(9, 3, 14, 1, 0, 2, NULL),
+(10, 3, 84, 1, 0, 1, NULL),
+(11, 3, 53, 1, 0, 1, NULL),
+(12, 4, 6, 2, 0, 1, 'hihu'),
+(13, 4, 7, 1, 0, 1, NULL),
+(14, 4, 8, 1, 0, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -782,7 +690,8 @@ INSERT INTO `detailproducts` (`Id`, `IdType`, `IdProduct`) VALUES
 (72, 31, 69),
 (73, 31, 70),
 (74, 31, 75),
-(75, 31, 73);
+(75, 31, 73),
+(87, 51, 119);
 
 -- --------------------------------------------------------
 
@@ -811,7 +720,8 @@ INSERT INTO `detailtypes` (`IdType`, `IdCategoris`) VALUES
 (31, 8),
 (31, 7),
 (31, 9),
-(30, 1);
+(30, 1),
+(51, 16);
 
 -- --------------------------------------------------------
 
@@ -862,35 +772,11 @@ INSERT INTO `imgbody` (`Img`) VALUES
 ('ytb1.jpg'),
 ('ytb4.jpg'),
 ('ytb3.jpg'),
-('WSKPyfdH9x4'),
+('LXIhxOQ8PLI'),
 ('ytb1.jpg'),
 ('ytb4.jpg'),
 ('ytb3.jpg'),
-('WSKPyfdH9x4');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `imgpagenew`
---
-
-CREATE TABLE `imgpagenew` (
-  `Img` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `imgpagenew`
---
-
-INSERT INTO `imgpagenew` (`Img`) VALUES
-('432768602_122163813026077687_6238129544873236612_n.jpg'),
-('426107323_757068556608540_6240491754554966160_n.jpg'),
-('435426749_734195938895802_2348812389547529064_n.jpg'),
-('440347019_745612817754114_1046494978454736200_n.jpg'),
-('432768602_122163813026077687_6238129544873236612_n.jpg'),
-('426107323_757068556608540_6240491754554966160_n.jpg'),
-('435426749_734195938895802_2348812389547529064_n.jpg'),
-('440347019_745612817754114_1046494978454736200_n.jpg');
+('LXIhxOQ8PLI');
 
 -- --------------------------------------------------------
 
@@ -909,26 +795,7 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`Id`, `Name`) VALUES
 (1, 'Gọi Món'),
-(2, 'Buffet'),
-(3, 'Combo');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `news`
---
-
-CREATE TABLE `news` (
-  `Id` int(11) NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  `Containt` varchar(1000) NOT NULL,
-  `Img` int(11) NOT NULL,
-  `Date` date NOT NULL,
-  `CreatedDateTime` date NOT NULL,
-  `CreatedUserId` int(11) NOT NULL,
-  `LastModifiedDateTime` date NOT NULL,
-  `LastModifiedUserId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(2, 'Buffet');
 
 -- --------------------------------------------------------
 
@@ -943,7 +810,7 @@ CREATE TABLE `products` (
   `Img` varchar(100) NOT NULL,
   `Dsription` varchar(1000) NOT NULL,
   `IdCategoris` int(11) NOT NULL,
-  `Sales` int(100) NOT NULL,
+  `Sales` int(11) NOT NULL,
   `Visible` tinyint(1) NOT NULL,
   `CreatedDateTime` date NOT NULL,
   `CreatedUserId` int(11) NOT NULL,
@@ -957,9 +824,9 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`Id`, `Name`, `Price`, `Img`, `Dsription`, `IdCategoris`, `Sales`, `Visible`, `CreatedDateTime`, `CreatedUserId`, `LastModifiedDateTime`, `LastModifiedUserId`) VALUES
 (1, 'Salad Cá Hồi', 89000, '2024915155414_60017509_saladtom_1_sp.png', 'Salad', 1, 6, 1, '2024-04-10', 1, '2024-04-10', 1),
-(2, 'Sườn Non Bò Mỹ Sốt Obathan', 415000, '60010612_Gau_bo_sot_mat_ong_200_1.png', 'Thịt Bò Được Nhập 100% Từ Mỹ', 4, 22, 1, '2024-04-12', 1, '2024-04-12', 1),
+(2, 'Sườn Non Bò Mỹ Sốt Obathan', 415000, '60010612_Gau_bo_sot_mat_ong_200_1.png', 'Thịt Bò Được Nhập 100% Từ Mỹ', 4, 27, 1, '2024-04-12', 1, '2024-04-12', 1),
 (3, 'Sườn Non Bò Mỹ LA Sốt Galbi 150gr', 239000, 'tb3-removebg-preview.png', 'hihi', 4, 13, 0, '2024-04-12', 1, '2024-04-12', 1),
-(4, 'Sườn Non Bò Mỹ LA Sốt Galbi 150gr', 239000, '60000040_ba_chi_bo_my_sot_mat_ong_1_1.png', 'ádasdsadsda', 4, 22, 1, '2024-04-12', 1, '2024-04-12', 1),
+(4, 'Sườn Non Bò Mỹ LA Sốt Galbi 150gr', 239000, '60000040_ba_chi_bo_my_sot_mat_ong_1_1.png', 'ádasdsadsda', 4, 24, 1, '2024-04-12', 1, '2024-04-12', 1),
 (5, 'Salad mùa xuân', 79000, '60018682_Salad_mua_xuan_1.png', 'hihi', 1, 4, 1, '2024-04-13', 1, '2024-04-13', 1),
 (6, 'Há cảo truyền thống Hàn Quốc', 79000, '60000131_ha_cao_tt_1.png', 'Há Cạo Hàn Quốc', 1, 8, 1, '2024-04-13', 1, '2024-04-13', 1),
 (7, 'Set kimbap (ALC)', 69000, '60000127_kimbap_chien_1.png', 'Kimbap', 1, 7, 1, '2024-04-13', 1, '2024-04-13', 1),
@@ -986,11 +853,11 @@ INSERT INTO `products` (`Id`, `Name`, `Price`, `Img`, `Dsription`, `IdCategoris`
 (38, 'Sườn non bò Mỹ tươi/ Obathan/gabi', 439000, '60000076_suon_la_xot_obathan_1.png', 'Thịt bò nướng Gogi là món ăn truyền thống của Hàn Quốc, với thịt bò tẩm gia vị đậm đà như nước tương, tỏi, hành và đường, sau đó được nướng trên than hoa hoặc bếp nướng điện cho vẻ ngoài giòn rụm và bên trong vẫn giữ được độ mềm, ngậy và thơm lừng. Món ăn này thường được ăn cuốn cùng với rau sống và các gia vị như nước tương hoặc tương ớt.', 4, 999, 1, '2024-04-17', 1, '2024-04-17', 1),
 (39, 'Sườn heo gabi', 139000, '60000137_suon_heo_galbi_1.png', 'Sườn Heo', 5, 0, 0, '2024-04-17', 1, '2024-04-17', 1),
 (40, 'Má heo Mỹ tươi/sốt obathan', 149000, '60000080_ma_heo_obathan_1.png', 'Sườn Heo', 5, 0, 0, '2024-04-17', 1, '2024-04-17', 1),
-(41, 'Má heo Mỹ tươi/Sốt obathan', 109000, '60000046_nac_vai_cay_1_1.png', 'Má heo Mỹ tươi với sốt obathan gogi là một món ăn truyền thống của Hàn Quốc. Thịt lợn được ướp gia vị đậm đà, xào cùng với sốt obathan gogi cân bằng ngọt, mặn và cay. Món ăn này thường được ăn kèm với cơm trắng hoặc rau sống để tạo nên một bữa ăn hoàn chỉnh.', 5, 1000, 1, '2024-04-17', 1, '2024-04-17', 1),
+(41, 'Má heo Mỹ tươi/Sốt obathan', 109000, '60000046_nac_vai_cay_1_1.png', 'Má heo Mỹ tươi với sốt obathan gogi là một món ăn truyền thống của Hàn Quốc. Thịt lợn được ướp gia vị đậm đà, xào cùng với sốt obathan gogi cân bằng ngọt, mặn và cay. Món ăn này thường được ăn kèm với cơm trắng hoặc rau sống để tạo nên một bữa ăn hoàn chỉnh.', 5, 1001, 1, '2024-04-17', 1, '2024-04-17', 1),
 (42, 'Sườn heo Mỹ sốt Obathan ALC', 149000, '60000031_Suon_heo_sot_Gabil_1_1.png', 'Sườn Heo', 5, 1, 1, '2024-04-17', 1, '2024-04-17', 1),
 (43, 'Mỳ tương đen', 79000, '60017526_mituongden_1_1.png', 'Mì', 3, 2, 1, '2024-04-17', 1, '2024-04-17', 1),
 (44, 'Miến xào', 79000, '60017524_mienxao_1_1.png', 'Mì', 3, 0, 1, '2024-04-17', 1, '2024-04-17', 1),
-(45, 'Cơm rang kim chi (ALC)', 79000, '60013787_comrang_kimchi-min_1_1.png', 'Cơm', 3, 6, 1, '2024-04-17', 1, '2024-04-17', 1),
+(45, 'Cơm rang kim chi (ALC)', 79000, '60013787_comrang_kimchi-min_1_1.png', 'Cơm', 3, 7, 1, '2024-04-17', 1, '2024-04-17', 1),
 (46, 'Canh lòng bò', 250000, '60010807_canh_long_bo_1.png', 'Canh', 3, 0, 0, '2024-04-17', 1, '2024-04-17', 1),
 (48, 'Canh rong biển thịt', 109000, '60000100_Canh_rong_bien_thit_1.png', 'Canh', 3, 0, 0, '2024-04-17', 1, '2024-04-17', 1),
 (49, 'Canh kim chi', 99000, '60003801_Canh_kim_chi_1.png', 'Canh Kim Chi là món canh truyền thống của Hàn Quốc, mang hương vị đặc trưng của kim chi chua cay, kết hợp cùng các nguyên liệu tươi ngon khác. Lớp nước canh trong veo được nêm nếm vừa vặn, tôn lên vị chua của kim chi và vị ngọt tự nhiên của các thành phần khác như tôm, thịt, nấm và rau củ. Sự hòa quyện của những hương vị này tạo nên một món canh đầy dinh dưỡng và hấp dẫn, vừa ấm áp dễ uống lại vừa kích thích vị giác. Canh Kim Chi là một lựa chọn hoàn hảo để bắt đầu hoặc kết thúc bữa ăn truyền thống Hàn Quốc.', 3, 999, 1, '2024-04-17', 1, '2024-04-17', 1),
@@ -1029,68 +896,16 @@ INSERT INTO `products` (`Id`, `Name`, `Price`, `Img`, `Dsription`, `IdCategoris`
 (84, 'Salad tổng hợp', 69000, '60000019_salad_tong_hop_1_1.png', 'Salad', 1, 4, 1, '2024-04-18', 1, '2024-04-18', 1),
 (85, 'Salad cải bó xôi', 69000, '60000016_Salad_cai_bo_xoi_1_1.png', 'Salad cải bó xôi là một món ăn gồm những chiếc lá cải bó xôi tươi xanh mướt, được trộn với các nguyên liệu như thịt bò, hành tây, tỏi, nước tương và gia vị. Các thành phần này thường được nướng lên để tạo ra hương vị đậm đà, ngọt bùi. Khi ăn, salad được cuốn cùng với các loại rau sống như xà lách, rau mùi và chan thêm nước sốt đặc trưng. Sự kết hợp giữa vị ngọt của thịt nướng, vị chua của nước sốt và sự giòn mềm của các loại rau tạo nên một món ăn đầy hương vị và cân bằng dinh dưỡng.', 1, 1001, 0, '2024-04-18', 1, '2024-04-18', 1),
 (87, 'Sườn heo sốt cay BF', 129000, '60000034_Suon_heo_sot_cay_1_1.png', 'Sườn heo', 5, 0, 1, '2024-04-18', 1, '2024-04-18', 1),
-(88, 'Thịt heo đặc biệt sốt cay', 129000, '60018691_thitheodacbietsotcay_1.png', 'Thịt Heo', 5, 0, 1, '2024-04-18', 1, '2024-04-18', 1),
+(88, 'Thịt heo đặc biệt sốt cay', 129000, '60018691_thitheodacbietsotcay_1.png', 'Thịt Heo', 5, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
 (89, 'Nạc vai heo sốt tương đậu vàng', 129000, '60009082_nac_vai_tuong_dau_1.png', 'Thịt Heo', 5, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
 (90, 'Bạch tuộc đại dương', 129000, '60018228_Bachtuocdaiduong_1.png', 'Bạch Tuộc', 8, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
 (92, 'Lõi vai bò ướp sốt cay', 129000, '60018687_loivaicay_1.png', 'Thịt bò', 4, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
 (94, 'Canh sườn bò', 89000, '60009311_canh_suon_1.png', 'Canh', 3, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
-(95, 'Dẻ sườn bò Mỹ tươi', 129000, '60004822_desuontuoi_1.png', 'Bò', 4, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
+(95, 'Dẻ sườn bò Mỹ tươi', 129000, '60004822_desuontuoi_1.png', 'Bò', 4, 0, 1, '2024-04-18', 1, '2024-04-18', 1),
 (96, 'Diềm cơ bò Mỹ sốt cay', 129000, '60017512_diemcosotcay_1.png', 'Bò', 4, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
 (98, 'Mực ống sốt hải sản', 129000, '60014122_mucsot_1.png', 'Mực', 8, 0, 0, '2024-04-18', 1, '2024-04-18', 1),
-(99, 'Mực ống tươi', 129000, '60017521_muc_ong_tuoi_1.png', 'Mực', 8, 1, 1, '2024-04-18', 1, '2024-04-18', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `slide`
---
-
-CREATE TABLE `slide` (
-  `Id` int(11) NOT NULL,
-  `img` varchar(1000) NOT NULL,
-  `author` varchar(1000) NOT NULL,
-  `title` varchar(1000) NOT NULL,
-  `topic` varchar(100) NOT NULL,
-  `des` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `slide`
---
-
-INSERT INTO `slide` (`Id`, `img`, `author`, `title`, `topic`, `des`) VALUES
-(1, 'backround4.jpg', 'KOREA', 'GOGI HOUSE', 'BBQ', 'GoGi House là một quán thịt nướng Hàn Quốc nổi tiếng ở Seoul. Hương vị đặc trưng của những món sườn non bò Mỹ, nạc vai bò Mỹ và dẻ sườn tươi kết hợp với gia vị Hàn Quốc đã tạo nên sự hấp dẫn và ngon miệng. Các món ăn kèm như cơm trộn, mỳ lạnh, canh Kimchi và các loại lẩu cũng đem lại ấn tượng về ẩm thực Hàn Quốc.'),
-(2, '20248912356_ytb5_sp.jpg', 'KOREA', 'GOGI HOUSE', 'BBQ', 'GoGi House là một quán thịt nướng Hàn Quốc nổi tiếng ở Seoul. Hương vị đặc trưng của những món sườn non bò Mỹ, nạc vai bò Mỹ và dẻ sườn tươi kết hợp với gia vị Hàn Quốc đã tạo nên sự hấp dẫn và ngon miệng. Các món ăn kèm như cơm trộn, mỳ lạnh, canh Kimchi và các loại lẩu cũng đem lại ấn tượng về ẩm thực Hàn Quốc.'),
-(3, '2024811225313_379865322_6803136289725136_1780440422753508588_n_sp.jpg', 'KOREA', 'GOGI HOUSE', 'BBQ', 'GoGi House là một quán thịt nướng Hàn Quốc nổi tiếng ở Seoul. Hương vị đặc trưng của những món sườn non bò Mỹ, nạc vai bò Mỹ và dẻ sườn tươi kết hợp với gia vị Hàn Quốc đã tạo nên sự hấp dẫn và ngon miệng. Các món ăn kèm như cơm trộn, mỳ lạnh, canh Kimchi và các loại lẩu cũng đem lại ấn tượng về ẩm thực Hàn Quốc.'),
-(4, 'ytb1.jpg', 'KOREA', 'GOGI HOUSE', 'BBQ', 'GoGi House là một quán thịt nướng Hàn Quốc nổi tiếng ở Seoul. Hương vị đặc trưng của những món sườn non bò Mỹ, nạc vai bò Mỹ và dẻ sườn tươi kết hợp với gia vị Hàn Quốc đã tạo nên sự hấp dẫn và ngon miệng. Các món ăn kèm như cơm trộn, mỳ lạnh, canh Kimchi và các loại lẩu cũng đem lại ấn tượng về ẩm thực Hàn Quốc.');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `slidemini`
---
-
-CREATE TABLE `slidemini` (
-  `Img` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `slidemini`
---
-
-INSERT INTO `slidemini` (`Img`) VALUES
-('268006674_4798227233549395_9065955655470747510_n.png'),
-('130551098_3623959837642813_2071892673745677753_n.jpg'),
-('102557336_3097466270292175_2765808264509443624_n.jpg'),
-('79332158_2687310037974469_1648744447791333376_n.png'),
-('72221846_2556022634436544_5785192992046317568_n.jpg'),
-('71183145_2518218688216939_4658281976887771136_n.jpg'),
-('268006674_4798227233549395_9065955655470747510_n.png'),
-('130551098_3623959837642813_2071892673745677753_n.jpg'),
-('102557336_3097466270292175_2765808264509443624_n.jpg'),
-('79332158_2687310037974469_1648744447791333376_n.png'),
-('72221846_2556022634436544_5785192992046317568_n.jpg'),
-('71183145_2518218688216939_4658281976887771136_n.jpg');
+(99, 'Mực ống tươi', 129000, '60017521_muc_ong_tuoi_1.png', 'Mực', 8, 1, 1, '2024-04-18', 1, '2024-04-18', 1),
+(119, 'Pepsi 1', 123, '2025214204528_z6189761064912_b553e8773a38542fd95d2aa801ad7417_sp.jpg', '213 3', 16, 0, 1, '2025-02-14', 1, '2025-02-14', 1);
 
 -- --------------------------------------------------------
 
@@ -1146,29 +961,8 @@ CREATE TABLE `types` (
 
 INSERT INTO `types` (`Id`, `Name`, `IdMenu`, `Price`, `CreatedDateTime`, `CreatedUserId`, `LastModifiedDateTime`, `LastModifiedUserId`) VALUES
 (30, 'Buffe Xèo Xèo', 2, 389000, '2024-04-14', 1, '2024-04-14', 1),
-(31, 'Buffe Classic 439k', 2, 439000, '2024-04-14', 1, '2024-04-14', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `Id` int(11) NOT NULL,
-  `FullName` varchar(50) NOT NULL,
-  `PhoneNumber` int(13) NOT NULL,
-  `BirthDay` varchar(10) NOT NULL,
-  `Gender` varchar(3) NOT NULL,
-  `IdAcc` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`Id`, `FullName`, `PhoneNumber`, `BirthDay`, `Gender`, `IdAcc`) VALUES
-(3, 'Admin', 832047271, '2025/04/01', '1', 1);
+(31, 'Buffe Classic 439k', 2, 439000, '2024-04-14', 1, '2024-04-14', 1),
+(51, 'Buffet', 2, 123, '2025-02-14', 1, '2025-02-14', 1);
 
 -- --------------------------------------------------------
 
@@ -1222,9 +1016,7 @@ ALTER TABLE `bill`
 -- Indexes for table `billorder`
 --
 ALTER TABLE `billorder`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `IdTable` (`IdTable`),
-  ADD KEY `Type` (`Type`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indexes for table `card`
@@ -1301,14 +1093,6 @@ ALTER TABLE `menu`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indexes for table `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `CreatedUserId` (`CreatedUserId`),
-  ADD KEY `LastModifiedUserId` (`LastModifiedUserId`);
-
---
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -1318,18 +1102,6 @@ ALTER TABLE `products`
   ADD KEY `IdCategoris` (`IdCategoris`);
 
 --
--- Indexes for table `slide`
---
-ALTER TABLE `slide`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `tables`
---
-ALTER TABLE `tables`
-  ADD PRIMARY KEY (`Id`);
-
---
 -- Indexes for table `types`
 --
 ALTER TABLE `types`
@@ -1337,13 +1109,6 @@ ALTER TABLE `types`
   ADD KEY `types_ibfk_3` (`IdMenu`),
   ADD KEY `types_ibfk_1` (`CreatedUserId`),
   ADD KEY `types_ibfk_2` (`LastModifiedUserId`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `IdAcc` (`IdAcc`);
 
 --
 -- Indexes for table `voucher`
@@ -1359,31 +1124,31 @@ ALTER TABLE `voucher`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT for table `annout`
 --
 ALTER TABLE `annout`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=475;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=496;
 
 --
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 
 --
 -- AUTO_INCREMENT for table `billorder`
 --
 ALTER TABLE `billorder`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categoris`
 --
 ALTER TABLE `categoris`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `chat`
@@ -1395,25 +1160,25 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
 
 --
 -- AUTO_INCREMENT for table `detailbill`
 --
 ALTER TABLE `detailbill`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
 -- AUTO_INCREMENT for table `detailbillorder`
 --
 ALTER TABLE `detailbillorder`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `detailproducts`
 --
 ALTER TABLE `detailproducts`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `historyacc`
@@ -1428,57 +1193,32 @@ ALTER TABLE `menu`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `news`
---
-ALTER TABLE `news`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
-
---
--- AUTO_INCREMENT for table `slide`
---
-ALTER TABLE `slide`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tables`
---
-ALTER TABLE `tables`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `voucher`
 --
 ALTER TABLE `voucher`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `billorder`
+-- Constraints for table `annout`
 --
-ALTER TABLE `billorder`
-  ADD CONSTRAINT `billorder_ibfk_1` FOREIGN KEY (`IdTable`) REFERENCES `tables` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `billorder_ibfk_2` FOREIGN KEY (`Type`) REFERENCES `types` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `annout`
+  ADD CONSTRAINT `annout_ibfk_1` FOREIGN KEY (`IdAcc`) REFERENCES `account` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `card`
@@ -1508,13 +1248,6 @@ ALTER TABLE `detailbill`
   ADD CONSTRAINT `detailbill_ibfk_2` FOREIGN KEY (`IdProduct`) REFERENCES `products` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `detailbillorder`
---
-ALTER TABLE `detailbillorder`
-  ADD CONSTRAINT `detailbillorder_ibfk_1` FOREIGN KEY (`IdBill`) REFERENCES `billorder` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detailbillorder_ibfk_2` FOREIGN KEY (`IdProduct`) REFERENCES `products` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `detailproducts`
 --
 ALTER TABLE `detailproducts`
@@ -1533,6 +1266,12 @@ ALTER TABLE `detailtypes`
 --
 ALTER TABLE `historyacc`
   ADD CONSTRAINT `historyacc_ibfk_1` FOREIGN KEY (`IdAcc`) REFERENCES `account` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`IdCategoris`) REFERENCES `categoris` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `types`
